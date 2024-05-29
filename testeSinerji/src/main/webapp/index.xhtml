@@ -2,7 +2,9 @@
 <!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,6 +17,23 @@
 		<h:commandButton value="Novo Cadastro" icon="fa fa-plus"
 			action="cadastrousuario" />
 
+		<p:dataTable id="usuariosDataTable"
+			value="#{usuarioBean.listaUsuarios}" var="usuario"
+			emptyMessage="Nenhum usuário cadastrado" rows="10"
+			selectionMode="single" selection="#{usuarioBean.usuario}"
+			rowKey="#{usuario.id}">
+			<p:column headerText="Nome" sortBy="#{usuario.nome}">
+				<h:outputText value="#{usuario.nome}" />
+			</p:column>
+
+			<p:column headerText="Idade">
+				<h:outputText value="#{usuario.idade}" />
+			</p:column>
+
+			<p:column headerText="Sexo">
+				<h:outputText value="#{usuario.sexo.sexo}" />
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </h:body>
 </html>
