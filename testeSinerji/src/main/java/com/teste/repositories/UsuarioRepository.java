@@ -32,4 +32,13 @@ public class UsuarioRepository implements Serializable {
 		return manager.merge(usuario);
 	}
 
+	public Usuario buscarPorId(Long id) {
+		return manager.find(Usuario.class, id);
+	}
+
+	public void excluir(Usuario usuario) {
+		usuario = buscarPorId(usuario.getId());
+		manager.remove(usuario);
+	}
+
 }

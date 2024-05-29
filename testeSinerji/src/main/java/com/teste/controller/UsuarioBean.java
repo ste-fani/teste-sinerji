@@ -15,7 +15,7 @@ import com.teste.services.UsuarioService;
 
 @Named
 @ViewScoped
-public class UsuarioBean implements Serializable{
+public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,18 +24,22 @@ public class UsuarioBean implements Serializable{
 
 	@Inject
 	private UsuarioService usuarioService;
-	
-	
+
 	public String salvarUsuario() {
 		usuarioService.salvarUsuario(usuario);
 		return "cadastroendereco";
 	}
-	
+
+	public String excluirUsuario() {
+		usuarioService.excluirUsuario(usuario);
+		return "index";
+	}
+
 	@PostConstruct
 	public void listarUsuarios() {
 		listaUsuarios = usuarioService.exibirUsuarios();
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -47,7 +51,7 @@ public class UsuarioBean implements Serializable{
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
-	
+
 	public TipoSexo[] getTipoSexo() {
 		return TipoSexo.values();
 	}

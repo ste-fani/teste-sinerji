@@ -11,18 +11,23 @@ import com.teste.utils.Transactional;
 
 public class UsuarioService implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Inject
-    private UsuarioRepository usuarioRepository;
+	@Inject
+	private UsuarioRepository usuarioRepository;
 
-    @Transactional
+	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
 		return usuarioRepository.salvar(usuario);
 	}
-    
-    @Transactional
-    public List<Usuario> exibirUsuarios(){
-    	return usuarioRepository.exibirUsuarios();
-    }
+
+	@Transactional
+	public List<Usuario> exibirUsuarios() {
+		return usuarioRepository.exibirUsuarios();
+	}
+
+	@Transactional
+	public void excluirUsuario(Usuario usuario) {
+		usuarioRepository.excluir(usuario);
+	}
 }
