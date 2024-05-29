@@ -7,7 +7,7 @@
 	<persistence-unit name="ProjetoSinerjiPU">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.projeto.entities.Usuario</class>
+		<class>com.teste.entities.Usuario</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

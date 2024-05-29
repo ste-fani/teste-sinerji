@@ -1,4 +1,4 @@
-package com.projeto.entities;
+package com.teste.entities;
 
 public enum TipoSexo {
 
