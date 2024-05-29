@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,10 +31,10 @@ public class UsuarioBean implements Serializable{
 		return "cadastroendereco";
 	}
 	
-	@PostConstruct
-	public void listarUsuarios() {
-		listaUsuarios = usuarioService.exibirUsuarios();
-	}
+//	@PostConstruct
+//	public void listarUsuarios() {
+//		listaUsuarios = usuarioService.exibirUsuarios();
+//	}
 	
 	public Usuario getUsuario() {
 		return usuario;
