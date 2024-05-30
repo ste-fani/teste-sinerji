@@ -27,7 +27,7 @@ public class UsuarioBean implements Serializable {
 
 	public String salvarUsuario() {
 		usuarioService.salvarUsuario(usuario);
-		return "index";
+		return "index?faces-redirect=true";
 	}
 
 	@PostConstruct
