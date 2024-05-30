@@ -14,15 +14,26 @@
 <h:body>
 	<h2>Lista de Usuários</h2>
 	<h:form id="frm">
-		<h:commandButton value="Novo Cadastro" icon="fa fa-plus"
-			action="cadastrousuario" />
+		<p:toolbar id="toolbar">
+			<f:facet name="left">
+				<p:commandButton value="Novo Cadastro" action="cadastrousuario" />
+				<p:commandButton value="Excluir"
+					disabled="#{not usuarioBean.usuarioSelecionado}"
+					actionListener="#{usuarioBean.excluirUsuario}"
+					update="usuariosDataTable" process="@this" />
+			</f:facet>
+		</p:toolbar>
 
 		<p:dataTable id="usuariosDataTable"
 			value="#{usuarioBean.listaUsuarios}" var="usuario"
 			emptyMessage="Nenhum usuário cadastrado" rows="10"
 			selectionMode="single" selection="#{usuarioBean.usuario}"
 			rowKey="#{usuario.id}">
-			<p:column headerText="Nome" sortBy="#{usuario.nome}">
+
+			<p:ajax event="rowSelect" update="frm:toolbar" />
+			<p:ajax event="rowUnselect" update="frm:toolbar" />
+
+			<p:column headerText="Nome">
 				<h:outputText value="#{usuario.nome}" />
 			</p:column>
 

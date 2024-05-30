@@ -27,17 +27,17 @@ public class UsuarioBean implements Serializable {
 
 	public String salvarUsuario() {
 		usuarioService.salvarUsuario(usuario);
-		return "cadastroendereco";
-	}
-
-	public String excluirUsuario() {
-		usuarioService.excluirUsuario(usuario);
 		return "index";
 	}
 
 	@PostConstruct
 	public void listarUsuarios() {
 		listaUsuarios = usuarioService.exibirUsuarios();
+	}
+
+	public void excluirUsuario() {
+		usuarioService.excluirUsuario(usuario);
+		listarUsuarios();
 	}
 
 	public Usuario getUsuario() {
@@ -54,5 +54,9 @@ public class UsuarioBean implements Serializable {
 
 	public TipoSexo[] getTipoSexo() {
 		return TipoSexo.values();
+	}
+
+	public boolean isUsuarioSelecionado() {
+		return usuario != null && usuario.getId() != null;
 	}
 }
