@@ -8,6 +8,7 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.teste.entities.Usuario</class>
+		<class>com.teste.entities.Endereco</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

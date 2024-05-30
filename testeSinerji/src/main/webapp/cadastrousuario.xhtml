@@ -36,8 +36,10 @@
 					<f:selectItems value="#{usuarioBean.tipoSexo}" var="tipoSexo"
 						itemLabel="#{tipoSexo.sexo}" itemValue="#{tipoSexo}" />
 				</p:selectOneMenu>
+				
 				<p:commandButton id="botao" value="Salvar"
 					action="#{usuarioBean.salvarUsuario}"/>
+					
 			</h:panelGrid>
 		</p:outputPanel>
 
