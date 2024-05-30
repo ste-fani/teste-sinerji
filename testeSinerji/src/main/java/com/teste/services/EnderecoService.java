@@ -21,7 +21,7 @@ public class EnderecoService implements Serializable {
 	}
 
 	@Transactional
-	public void excluirUsuario(Endereco endereco) {
+	public void excluirEndereco(Endereco endereco) {
 		enderecoRepository.excluir(endereco);
 	}
 

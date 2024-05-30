@@ -21,15 +21,15 @@
 				<p:commandButton value="Excluir"
 					disabled="#{not usuarioBean.usuarioSelecionado}"
 					actionListener="#{usuarioBean.excluirUsuario}"
-					update="usuariosDataTable" process="@this" />
+					update="usuariosDataTable toolbar" process="@this" />
 			</f:facet>
 		</p:toolbar>
 
 		<p:dataTable id="usuariosDataTable"
 			value="#{usuarioBean.listaUsuarios}" var="usuario"
 			emptyMessage="Nenhum usuário cadastrado" rows="10"
-			selectionMode="single" selection="#{usuarioBean.usuario}"
-			rowKey="#{usuario.id}">
+			selectionMode="single" selection="#{usuarioBean.endereco}"
+			rowKey="#{endereco.id}">
 
 			<p:ajax event="rowSelect" update="frm:toolbar" />
 			<p:ajax event="rowUnselect" update="frm:toolbar" />
