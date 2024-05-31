@@ -60,3 +60,11 @@ Utilize o `mvn clean install` para instalar as dependências
 
 #### Visualização do projeto
 Adicione o projeto ao Server disponilizado pelo Tomcat, verifique o localhost disponível para visualizar a aplicação. Por padrão o localhost será `http://localhost:${porta}/testeSinerji`
+![Página inicial não populada](https://github.com/ste-fani/teste-sinerji/assets/69688122/2225ab11-5a67-46d3-b7a8-d7b8fcf7c4c3)
+![Página de cadastro](https://github.com/ste-fani/teste-sinerji/assets/69688122/fb5b8176-1639-4bf2-9e7b-b8e3e53ded20)
+![Página inicial populada](https://github.com/ste-fani/teste-sinerji/assets/69688122/50bef9e4-63c9-48db-8f97-251ea48768f3)
+![Página com usuário pesquisado](https://github.com/ste-fani/teste-sinerji/assets/69688122/d9ca77d8-c8ea-4c7f-8a2c-106f1b122bb1)
+![Modal para edição de dados do usuário](https://github.com/ste-fani/teste-sinerji/assets/69688122/26390a5c-5e2a-4cb5-8819-0a453ab64c01)
+
+
+
