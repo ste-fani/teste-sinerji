@@ -36,9 +36,9 @@ public class UsuarioBean implements Serializable {
 	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
 	public String salvarUsuario() {
-		usuarioService.salvarUsuario(usuario);
 		endereco.setUsuario(usuario);
 		enderecoService.salvarEndereco(endereco);
+		listarUsuarios();
 		return "index?faces-redirect=true";
 	}
 
@@ -49,6 +49,11 @@ public class UsuarioBean implements Serializable {
 
 	public void excluirUsuario() {
 		usuarioService.excluirUsuario(usuario);
+		listarUsuarios();
+	}
+	
+	public void editarUsuario() {
+		usuarioService.salvarUsuario(usuario);
 		listarUsuarios();
 	}
 
