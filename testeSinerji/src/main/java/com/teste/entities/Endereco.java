@@ -32,7 +32,7 @@ public class Endereco implements Serializable {
 	
 	private String cep;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 

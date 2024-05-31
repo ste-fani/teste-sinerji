@@ -21,15 +21,19 @@ public class UsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Usuario usuario = new Usuario();
-	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
-	private Endereco endereco = new Endereco();
+	@Inject
+	private Usuario usuario;
+
+	@Inject
+	private Endereco endereco;
 
 	@Inject
 	private UsuarioService usuarioService;
-	
+
 	@Inject
 	private EnderecoService enderecoService;
+
+	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
 
 	public String salvarUsuario() {
 		usuarioService.salvarUsuario(usuario);
@@ -40,7 +44,7 @@ public class UsuarioBean implements Serializable {
 
 	@PostConstruct
 	public void listarUsuarios() {
-		listaUsuarios = usuarioService.exibirUsuarios();
+		this.listaUsuarios = usuarioService.exibirUsuarios();
 	}
 
 	public void excluirUsuario() {

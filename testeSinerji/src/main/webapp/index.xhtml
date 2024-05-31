@@ -12,14 +12,12 @@
 	<title>Lista de Usuários</title>
 </h:head>
 <h:body>
-	<h2>Lista de Usuários</h2>
 	<h:form id="frm">
-	
 		<p:toolbar id="toolbar">
 			<f:facet name="left">
 				<p:commandButton value="Novo Cadastro" action="cadastrousuario" />
 				<p:commandButton value="Excluir"
-					disabled="#{not usuarioBean.usuarioSelecionado}"
+					disabled="#{!usuarioBean.usuarioSelecionado}"
 					actionListener="#{usuarioBean.excluirUsuario}"
 					update="usuariosDataTable toolbar" process="@this" />
 			</f:facet>
@@ -28,8 +26,14 @@
 		<p:dataTable id="usuariosDataTable"
 			value="#{usuarioBean.listaUsuarios}" var="usuario"
 			emptyMessage="Nenhum usuário cadastrado" rows="10"
-			selectionMode="single" selection="#{usuarioBean.endereco}"
-			rowKey="#{endereco.id}">
+			selectionMode="single" selection="#{usuarioBean.usuario}"
+			rowKey="#{usuario.id}">
+
+			<f:facet name="header">
+				<div class="user-table-header">
+					<span style="font-weight: bold">Lista de Usuários</span>
+				</div>
+			</f:facet>
 
 			<p:ajax event="rowSelect" update="frm:toolbar" />
 			<p:ajax event="rowUnselect" update="frm:toolbar" />
@@ -39,14 +43,35 @@
 			</p:column>
 
 			<p:column headerText="Idade">
-				<h:outputText value="#{usuario.idade}" />
+				<h:outputText value="#{usuario.idade} anos" />
 			</p:column>
 
 			<p:column headerText="Sexo">
 				<h:outputText value="#{usuario.sexo.sexo}" />
 			</p:column>
+
+			<p:column headerText="Endereço">
+				<h:outputText value="#{usuario.endereco.logradouro}, #{usuario.endereco.numero}, #{usuario.endereco.cidade}-#{usuario.endereco.estado}" />
+				<br />
+				<h:outputText value="CEP: #{usuario.endereco.cep}" />
+			</p:column>
+
+			<p:column exportable="false" ariaHeaderText="Ações">
+				<p:commandButton icon="pi pi-pencil"
+					styleClass="edit-button rounded-button ui-button-success"
+					process="@this">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioBean.usuarioSelecionado}" />
+				</p:commandButton>
+
+				<p:commandButton class="ui-button-warning rounded-button"
+					icon="pi pi-trash" process="@this">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioBean.usuarioSelecionado}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
-		
 	</h:form>
+
 </h:body>
 </html>
