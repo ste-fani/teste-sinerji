@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "endereco")
@@ -22,14 +24,23 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Column(length = 180)
 	private String logradouro;
 	
+	@NotNull
 	private Integer numero;
 	
+	@NotNull
+	@Column(length = 280)
 	private String cidade;
 	
+	@NotNull
+	@Column(length = 2)
 	private String estado;
 	
+	@NotNull
+	@Column(length = 9)
 	private String cep;
 	
 	@OneToOne(cascade = CascadeType.ALL)

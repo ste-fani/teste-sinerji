@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import com.teste.entities.Usuario;
 
@@ -34,6 +35,13 @@ public class UsuarioRepository implements Serializable {
 
 	public Usuario buscarPorId(Long id) {
 		return manager.find(Usuario.class, id);
+	}
+	
+	public List<Usuario> buscarPorNome(String nomeUsuario){
+		String jpql = "from Usuario where LOWER(nome) like LOWER(:nome)";
+		TypedQuery<Usuario> query = manager.createQuery(jpql, Usuario.class);
+		query.setParameter("nome", nomeUsuario + "%");
+		return query.getResultList();
 	}
 
 	public void excluir(Usuario usuario) {

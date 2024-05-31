@@ -28,6 +28,7 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@NotEmpty
+	@Column(length = 180)
 	private String nome;
 
 	@NotNull

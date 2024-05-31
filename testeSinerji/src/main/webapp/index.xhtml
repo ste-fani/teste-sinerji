@@ -8,10 +8,12 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<h:outputStylesheet library="css" name="file.css" />
-	<title>Lista de Usuários</title>
+	<title>Gerenciamento de Usuários</title>
 </h:head>
 <h:body>
 	<h:form id="usuarioForm">
+		<p:growl id="messages" closable="true" />
+
 		<p:toolbar id="toolbar" style="margin-bottom: 10px">
 			<p:toolbarGroup>
 				<span style="font-weight: bold; font-size: 1.5rem">Gerenciamento
@@ -24,25 +26,38 @@
 				<p:commandButton id="btn-excluir" value="Excluir" icon="pi pi-trash"
 					disabled="#{!usuarioBean.usuarioSelecionado}"
 					actionListener="#{usuarioBean.excluirUsuario}"
-					styleClass="ui-button-danger" update="usuariosDataTable toolbar"
-					process="@this" style="margin: 5px" />
+					styleClass="ui-button-danger"
+					update="usuariosDataTable toolbar usuarioForm:messages"
+					process="@this" style="margin: 5px">
+					<p:confirm header="Confirmar"
+						message="Excluir o usuário selecionado?"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
 			</p:toolbarGroup>
 		</p:toolbar>
 
-		<p:dataTable id="usuariosDataTable" widgetVar="usuarios-DataTable"
+		<p:dataTable id="usuariosDataTable" widgetVar="usuarioDataTable"
 			value="#{usuarioBean.listaUsuarios}" var="usuario"
-			emptyMessage="Nenhum usuário cadastrado" rows="10"
+			emptyMessage="Nenhum usuário cadastrado" rows="10" paginator="true"
 			paginatorPosition="bottom" selectionMode="single"
 			selection="#{usuarioBean.usuario}" rowKey="#{usuario.id}">
 
 			<f:facet name="header">
-				<div class="user-table-header">
-					<h3 style="font-weight: bold" align="center">Lista de Usuários</h3>
+				<div class="flex justify-content-between">
+					<span style="font-weight: bold; margin-right: 10px">Lista de Usuários</span> 
+					<span> 
+						<p:inputText
+							id="inputFiltro" value="#{usuarioBean.nomeUsuario}"
+							placeholder="Pesquisar" update="usuariosDataTable" /> 
+						<p:commandButton icon="pi pi-search" style="margin-left: 5px"
+							actionListener="#{usuarioBean.pesquisarUsuario}"
+							update="usuariosDataTable" process="@this inputFiltro" />
+					</span>
 				</div>
 			</f:facet>
 
-			<p:ajax event="rowSelect" update=":usuarioForm:btn-excluir" />
-			<p:ajax event="rowUnselect" update=":usuarioForm:btn-excluir" />
+			<p:ajax event="rowSelect" update="usuarioForm:btn-excluir" />
+			<p:ajax event="rowUnselect" update="usuarioForm:btn-excluir" />
 
 			<div class="field">
 				<p:column headerText="Nome">
@@ -83,8 +98,8 @@
 					</p:commandButton>
 
 					<p:commandButton class="ui-button-danger rounded-button"
-						icon="pi pi-trash" actionListener="#{usuarioBean.excluirUsuario}"
-						update="usuariosDataTable" process="@this" style="margin: 5px">
+						icon="pi pi-trash" update="usuariosDataTable" process="@this"
+						oncomplete="PF('excluirUsuarioPopUp').show()" style="margin: 5px">
 						<f:setPropertyActionListener value="#{usuario}"
 							target="#{usuarioBean.usuario}" />
 					</p:commandButton>
@@ -148,7 +163,7 @@
 			<f:facet name="footer">
 				<p:commandButton value="Salvar" icon="pi pi-check"
 					actionListener="#{usuarioBean.editarUsuario}"
-					update="usuarioForm:usuariosDataTable gerenciar-usuario"
+					update="usuarioForm:usuariosDataTable gerenciar-usuario usuarioForm:messages"
 					process="@this gerenciar-usuario"
 					onclick="PF('gerenciarUsuarioModal').hide()" />
 				<p:commandButton value="Cancelar" icon="pi pi-times"
@@ -156,6 +171,27 @@
 					class="ui-button-secondary" type="button" />
 			</f:facet>
 		</p:dialog>
+
+		<p:confirmDialog widgetVar="excluirUsuarioPopUp" showEffect="fade"
+			width="300" message="Excluir Usuário?" header="Confirmar"
+			severity="warn">
+			<p:commandButton value="Sim" icon="pi pi-check"
+				actionListener="#{usuarioBean.excluirUsuario}" process="@this"
+				update="usuarioForm:btn-excluir usuarioForm:usuariosDataTable usuarioForm:messages"
+				oncomplete="PF('excluirUsuarioPopUp').hide()" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-button-secondary" icon="pi pi-times"
+				onclick="PF('excluirUsuarioPopUp').hide()" />
+		</p:confirmDialog>
+
+		<p:confirmDialog global="true" showEffect="fade" width="300">
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no ui-button-secondary"
+				icon="pi pi-times" />
+		</p:confirmDialog>
+
 	</h:form>
 
 	<f:metadata>

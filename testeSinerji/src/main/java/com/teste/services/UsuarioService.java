@@ -25,6 +25,11 @@ public class UsuarioService implements Serializable {
 	public List<Usuario> exibirUsuarios() {
 		return usuarioRepository.exibirUsuarios();
 	}
+	
+	@Transactional
+	public List<Usuario> pesquisarUsuarios(String nome) {
+		return usuarioRepository.buscarPorNome(nome);
+	}
 
 	@Transactional
 	public void excluirUsuario(Usuario usuario) {

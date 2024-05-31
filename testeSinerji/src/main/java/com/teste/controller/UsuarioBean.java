@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,6 +36,8 @@ public class UsuarioBean implements Serializable {
 	private EnderecoService enderecoService;
 
 	private List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+	
+	private String nomeUsuario;
 
 	public String salvarUsuario() {
 		endereco.setUsuario(usuario);
@@ -50,11 +54,17 @@ public class UsuarioBean implements Serializable {
 	public void excluirUsuario() {
 		usuarioService.excluirUsuario(usuario);
 		listarUsuarios();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuário deletado com sucesso."));
 	}
-	
+
 	public void editarUsuario() {
 		usuarioService.salvarUsuario(usuario);
 		listarUsuarios();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuário editado com sucesso."));
+	}
+	
+	public void pesquisarUsuario() {
+		this.listaUsuarios = usuarioService.pesquisarUsuarios(nomeUsuario);
 	}
 
 	public Usuario getUsuario() {
@@ -67,6 +77,14 @@ public class UsuarioBean implements Serializable {
 
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public TipoSexo[] getTipoSexo() {
