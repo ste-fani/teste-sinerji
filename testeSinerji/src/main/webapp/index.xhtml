@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,72 +12,84 @@
 </h:head>
 <h:body>
 	<h:form id="usuarioForm">
-		<p:toolbar id="toolbar">
+		<p:toolbar id="toolbar" style="margin-bottom: 10px">
 			<p:toolbarGroup>
-				<span>Gerenciamento de Usuários</span>
+				<span style="font-weight: bold; font-size: 1.5rem">Gerenciamento
+					de Usuários</span>
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
 				<p:commandButton value="Novo Cadastro" icon="pi pi-plus"
-					update=":dialogs:gerenciar-usuario" action="cadastrousuario" />
-				<p:commandButton id="btn-excluir" value="Excluir"
+					update="dialogs:gerenciar-usuario"
+					action="cadastrousuario?faces-redirect=true" style="margin: 5px" />
+				<p:commandButton id="btn-excluir" value="Excluir" icon="pi pi-trash"
 					disabled="#{!usuarioBean.usuarioSelecionado}"
 					actionListener="#{usuarioBean.excluirUsuario}"
 					styleClass="ui-button-danger" update="usuariosDataTable toolbar"
-					process="@this" />
+					process="@this" style="margin: 5px" />
 			</p:toolbarGroup>
 		</p:toolbar>
 
-		<p:dataTable id="usuariosDataTable"
+		<p:dataTable id="usuariosDataTable" widgetVar="usuarios-DataTable"
 			value="#{usuarioBean.listaUsuarios}" var="usuario"
 			emptyMessage="Nenhum usuário cadastrado" rows="10"
-			selectionMode="single" selection="#{usuarioBean.usuario}"
-			rowKey="#{usuario.id}">
+			paginatorPosition="bottom" selectionMode="single"
+			selection="#{usuarioBean.usuario}" rowKey="#{usuario.id}">
 
 			<f:facet name="header">
 				<div class="user-table-header">
-					<span style="font-weight: bold">Lista de Usuários</span>
+					<h3 style="font-weight: bold" align="center">Lista de Usuários</h3>
 				</div>
 			</f:facet>
 
 			<p:ajax event="rowSelect" update=":usuarioForm:btn-excluir" />
 			<p:ajax event="rowUnselect" update=":usuarioForm:btn-excluir" />
-			
-			<p:column headerText="Nome">
-				<h:outputText value="#{usuario.nome}" />
-			</p:column>
 
-			<p:column headerText="Idade">
-				<h:outputText value="#{usuario.idade} anos" />
-			</p:column>
+			<div class="field">
+				<p:column headerText="Nome">
+					<h:outputText value="#{usuario.nome}" />
+				</p:column>
+			</div>
 
-			<p:column headerText="Sexo">
-				<h:outputText value="#{usuario.sexo.sexo}" />
-			</p:column>
+			<div class="field">
+				<p:column headerText="Idade">
+					<h:outputText value="#{usuario.idade} anos" />
+				</p:column>
+			</div>
 
-			<p:column headerText="Endereço">
-				<h:outputText
-					value="#{usuario.endereco.logradouro}, #{usuario.endereco.numero}, #{usuario.endereco.cidade}-#{usuario.endereco.estado}. " />
-				<h:outputText value="CEP: #{usuario.endereco.cep}" />
-			</p:column>
+			<div class="field">
+				<p:column headerText="Sexo">
+					<h:outputText value="#{usuario.sexo.sexo}" />
+				</p:column>
+			</div>
 
-			<p:column exportable="false" ariaHeaderText="Ações">
-				<p:commandButton icon="pi pi-pencil"
-					update=":dialogs:gerenciar-usuario"
-					oncomplete="PF('gerenciarUsuarioModal').show()"
-					styleClass="edit-button rounded-button ui-button-success"
-					process="@this">
-					<f:setPropertyActionListener value="#{usuario}"
-						target="#{usuarioBean.usuario}" />
-					<p:resetInput target=":dialogs:gerenciar-usuario" />
-				</p:commandButton>
+			<div class="field">
+				<p:column headerText="Endereço">
+					<h:outputText
+						value="#{usuario.endereco.logradouro}, #{usuario.endereco.numero}, #{usuario.endereco.cidade}-#{usuario.endereco.estado}. " />
+					<h:outputText value="CEP: #{usuario.endereco.cep}" />
+				</p:column>
+			</div>
 
-				<p:commandButton class="ui-button-danger rounded-button"
-					icon="pi pi-trash" actionListener="#{usuarioBean.excluirUsuario}"
-					update="usuariosDataTable" process="@this">
-					<f:setPropertyActionListener value="#{usuario}"
-						target="#{usuarioBean.usuario}" />
-				</p:commandButton>
-			</p:column>
+			<div class="field">
+				<p:column exportable="false" ariaHeaderText="Ações">
+					<p:commandButton icon="pi pi-pencil"
+						update="dialogs:gerenciar-usuario"
+						oncomplete="PF('gerenciarUsuarioModal').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						process="@this" style="margin: 5px">
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{usuarioBean.usuario}" />
+						<p:resetInput target="dialogs:gerenciar-usuario" />
+					</p:commandButton>
+
+					<p:commandButton class="ui-button-danger rounded-button"
+						icon="pi pi-trash" actionListener="#{usuarioBean.excluirUsuario}"
+						update="usuariosDataTable" process="@this" style="margin: 5px">
+						<f:setPropertyActionListener value="#{usuario}"
+							target="#{usuarioBean.usuario}" />
+					</p:commandButton>
+				</p:column>
+			</div>
 		</p:dataTable>
 	</h:form>
 

@@ -13,7 +13,18 @@
 </h:head>
 <h:body>
 	<h:form id="formUsuario">
-		<h2>Cadastro de Usuário</h2>
+		<p:toolbar id="toolbar" styleClass="p-justify-around">
+			<p:toolbarGroup>
+				<p:commandButton id="btn-voltar" value="Voltar"
+					icon="pi pi-arrow-left" action="index?faces-redirect=true"
+					process="@this" />
+			</p:toolbarGroup>
+			<p:toolbarGroup>
+				<span style="font-weight: bold; font-size: 1.5rem">Cadastro
+					de Usuário</span>
+			</p:toolbarGroup>
+			<p:toolbarGroup></p:toolbarGroup>
+		</p:toolbar>
 
 		<p:outputPanel id="panel" styleClass="mb-2">
 			<h3>Dados Pessoais</h3>
